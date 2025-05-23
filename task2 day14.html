@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task 2 - Day 14</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #5cb1a6, #6dc1b5);
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .section-title {
+      font-size: 20px;
+      margin-top: 30px;
+      margin-bottom: 12px;
+      color: #34495e;
+      border-bottom: 2px solid #4caf91;
+      padding-bottom: 4px;
+    }
+    .question {
+      margin-bottom: 25px;
+    }
+    .english {
+      font-size: 16px;
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+    .translation {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 6px;
+    }
+    input[type="text"] {
+      width: 140px;
+      padding: 6px;
+      margin: 0 3px;
+      font-size: 15px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+    }
+    .check-btn {
+      margin-top: 6px;
+      background: #4caf91;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .feedback {
+      margin-top: 6px;
+      font-weight: bold;
+    }
+    .correct { color: green; }
+    .incorrect { color: red; }
+    .example {
+      font-style: italic;
+      margin-top: 4px;
+      color: #333;
+      line-height: 1.5;
+    }
+    @media (max-width: 600px) {
+      input[type="text"] {
+        width: 100%;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Task 2 - Day 14</h2>
+
+  <div class="section-title">一. 句子填空（Job & City）</div>
+
+  <div id="q1" class="question"></div>
+  <div id="q2" class="question"></div>
+  <div id="q3" class="question"></div>
+  <div id="q4" class="question"></div>
+
+  <div class="section-title">二. 短语填空（含例句 + 翻译）</div>
+
+  <div class="question"><div class="english">1. 限制私家车使用：</div><input type="text" id="p75"><button class="check-btn" onclick="checkPhrase('p75', 'curb private car use', 'The government should curb private car use to ease urban congestion.', '政府应限制私家车使用以缓解城市拥堵。')">Check</button><div class="feedback" id="fb_p75"></div></div>
+  <div class="question"><div class="english">2. 骑自行车上班：</div><input type="text" id="p76"><button class="check-btn" onclick="checkPhrase('p76', 'cycle to work', 'Many people in Amsterdam cycle to work every day.', '阿姆斯特丹很多人每天骑车上班。')">Check</button><div class="feedback" id="fb_p76"></div></div>
+  <div class="question"><div class="english">3. 第三产业：</div><input type="text" id="p77"><button class="check-btn" onclick="checkPhrase('p77', 'tertiary industry', 'The city’s economy relies heavily on the tertiary industry.', '该城市的经济高度依赖第三产业。')">Check</button><div class="feedback" id="fb_p77"></div></div>
+  <div class="question"><div class="english">4. 水资源短缺：</div><input type="text" id="p78"><button class="check-btn" onclick="checkPhrase('p78', 'water shortage', 'Water shortage has become a major issue in arid regions.', '水资源短缺已成为干旱地区的主要问题。')">Check</button><div class="feedback" id="fb_p78"></div></div>
+  <div class="question"><div class="english">5. 过度工业化：</div><input type="text" id="p79"><button class="check-btn" onclick="checkPhrase('p79', 'over-industrialization', 'Over-industrialization leads to severe pollution and environmental degradation.', '过度工业化会导致严重污染和环境恶化。')">Check</button><div class="feedback" id="fb_p79"></div></div>
+  <div class="question"><div class="english">6. 城市建设：</div><input type="text" id="p80"><button class="check-btn" onclick="checkPhrase('p80', 'urban construction', 'Urban construction projects have transformed the skyline of the city.', '城市建设项目改变了城市天际线。')">Check</button><div class="feedback" id="fb_p80"></div></div>
+  <div class="question"><div class="english">7. 人口激增：</div><input type="text" id="p81"><button class="check-btn" onclick="checkPhrase('p81', 'population explosion', 'The population explosion has put pressure on housing and transportation.', '人口激增对住房和交通造成压力。')">Check</button><div class="feedback" id="fb_p81"></div></div>
+  <div class="question"><div class="english">8. 与压力有关的疾病：</div><input type="text" id="p82"><button class="check-btn" onclick="checkPhrase('p82', 'stress-related illness', 'Stress-related illness is common among city dwellers.', '与压力相关的疾病在城市人群中很常见。')">Check</button><div class="feedback" id="fb_p82"></div></div>
+</div>
+
+<script>
+  const sentences = [
+    {
+      id: 's1',
+      text: 'Many young people are pushed into careers that they have no aptitude for because of parental aspiration. Many parents push their children into a limited set of career options because these choices represent social success, security and money in later life.',
+      translation: '很多年轻人因为父母期望被迫从事自己没有天赋的工作，因为这些职业代表成功、安稳和金钱。',
+      containerId: 'q1'
+    },
+    {
+      id: 's2',
+      text: 'The experience of part-time job explores students’ interests and talents, which helps them determine their future career.',
+      translation: '兼职经历开发学生兴趣和才干，有助于他们确定未来职业方向。',
+      containerId: 'q2'
+    },
+    {
+      id: 's3',
+      text: 'People migrate to cities from the countryside in search of job opportunities and better life because cities offer greater employment possibilities and a higher standard of living.',
+      translation: '人们为了工作和生活水平从乡村迁往城市，因为城市提供更多就业机会和更高生活质量。',
+      containerId: 'q3'
+    },
+    {
+      id: 's4',
+      text: 'Life in cities can be extremely stressful. The rising cost of living, homelessness, poverty, unemployment, crime, traffic congestion, and no sense of community are common in cities, which are sometimes described as “concrete jungles”.',
+      translation: '城市生活压力巨大，生活成本高、失业、犯罪等常见，城市有时被称为“钢筋丛林”。',
+      containerId: 'q4'
+    }
+  ];
+
+  function getRandomIndexes(array, min = 5, max = 7) {
+    const count = Math.min(Math.floor(Math.random() * (max - min + 1)) + min, array.length);
+    const set = new Set();
+    while (set.size < count) {
+      const i = Math.floor(Math.random() * array.length);
+      const word = array[i].replace(/[.,()"]/g, '');
+      if (word.length > 2 && !word.includes("'")) set.add(i);
+    }
+    return Array.from(set);
+  }
+
+  function renderSentence({ id, text, translation, containerId }) {
+    const words = text.split(" ");
+    const blanks = getRandomIndexes(words);
+    const answers = {};
+    const html = words.map((word, i) => {
+      const clean = word.replace(/[.,()"]/g, "");
+      const punct = word.match(/[.,()"]$/) ? word.slice(-1) : "";
+      if (blanks.includes(i)) {
+        const inputId = `${id}_${i}`;
+        answers[inputId] = clean.toLowerCase();
+        return `<input type="text" id="${inputId}" placeholder="...">${punct}`;
+      }
+      return word;
+    }).join(" ");
+    document.getElementById(containerId).innerHTML = `
+      <div class="english">${html}</div>
+      <div class="translation">${translation}</div>
+      <button class="check-btn" onclick='checkSentence("${id}", ${JSON.stringify(answers)})'>Check</button>
+      <div class="feedback" id="fb_${id}"></div>
+    `;
+  }
+
+  function checkSentence(id, answers) {
+    const feedback = document.getElementById("fb_" + id);
+    let correct = true;
+    for (const [inputId, expected] of Object.entries(answers)) {
+      const val = document.getElementById(inputId).value.trim().toLowerCase();
+      if (val !== expected) correct = false;
+    }
+    feedback.innerHTML = correct
+      ? "<span class='correct'>✔ 正确！</span>"
+      : `<span class='incorrect'>✘ 有错误</span> 正确答案：${Object.values(answers).join(" / ")}`;
+  }
+
+  function checkPhrase(id, answer, example, translation) {
+    const feedback = document.getElementById("fb_" + id);
+    const input = document.getElementById(id).value.trim().toLowerCase();
+    const correctAnswer = answer.toLowerCase();
+    if (input === correctAnswer) {
+      feedback.innerHTML = `<span class="correct">✔ 正确！</span><div class="example">雅思例句：${example}</div><div class="example">中文翻译：${translation}</div>`;
+    } else {
+      feedback.innerHTML = `<span class="incorrect">✘ 错误</span> 正确答案：${answer}<div class="example">雅思例句：${example}</div><div class="example">中文翻译：${translation}</div>`;
+    }
+  }
+
+  // 初始化句子填空渲染
+  sentences.forEach(renderSentence);
+</script>
+</body>
+</html>
